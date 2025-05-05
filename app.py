@@ -52,6 +52,7 @@ def forecast(req: ForecastRequest):
         "Season":                     target.to_timestamp().strftime("%B")
     }
     X_new = pd.DataFrame([row])
+    X_new = X_new[pipeline.feature_names_in_]
     
     # run the prediction
     try:
