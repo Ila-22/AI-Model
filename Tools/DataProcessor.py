@@ -34,6 +34,16 @@ class DataProcessor():
 
         df = df[df['Value'].notna()] # we need no nan values in the target column
 
+        # add Total Accident of each Year
+        annual_totals = (
+            df[(df['Accident_type'] == 'insgesamt') & (df['Month'] == 'Summe')]
+            .groupby('Year')['Value']
+            .sum()
+            .rename('Total_Accidents_That_Year')
+            .reset_index()
+        )
+        df = df.merge(annual_totals, on='Year', how='left')
+
         # Month column >> datetime format
         df['Month'] = pd.to_datetime(df['Month'].astype(str), format="%Y%m", errors='coerce') # 'coerce' removes "Summe" values and replases Nan 
         df['Month'] = df['Month'].dt.to_period('m')
