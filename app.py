@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import pickle
 
-# request & response schemas
+# request & response schemas     
 class ForecastRequest(BaseModel):
     year: int = Field(..., example=2021)
     month: int = Field(..., ge=1, le=12, example=1)
