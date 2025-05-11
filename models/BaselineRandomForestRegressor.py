@@ -5,6 +5,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.impute import SimpleImputer
 
 class BaselineRandomForestRegressor:
     def __init__(self, df, target_col, feature_cols=None, test_size=0.2, random_state=42):
@@ -30,8 +31,11 @@ class BaselineRandomForestRegressor:
         numeric_cols = [col for col in self.X.columns if col not in categorical_cols]
 
         preprocessor = ColumnTransformer(transformers=[
-            ('num', 'passthrough', numeric_cols),
-            ('cat', OneHotEncoder(drop='first', handle_unknown='ignore'), categorical_cols)
+            ('num', SimpleImputer(strategy='mean'), numeric_cols),
+            ('cat', Pipeline(steps=[
+                ('imputer', SimpleImputer(strategy='most_frequent')),
+                ('encoder', OneHotEncoder(drop='first', handle_unknown='ignore'))
+            ]), categorical_cols)
         ])
 
         self.model = Pipeline(steps=[

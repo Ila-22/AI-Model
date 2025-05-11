@@ -14,7 +14,7 @@ class ForecastResponse(BaseModel):
     prediction: float
 
 # load trained pipeline 
-with open("pipeline.pkl", "rb") as f:
+with open("model.pkl", "rb") as f: #pipeline.pkl
     pipeline = pickle.load(f)
 
 # prep stats
