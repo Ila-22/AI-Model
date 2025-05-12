@@ -17,6 +17,9 @@ This project provides a robust time-series forecasting pipeline for traffic acci
 ```text
 AI-Model/
 │
+├── data/
+│   ├── monatszahlen2501_*.csv     # Original input dataset
+│ 
 ├── models/                        # All ML model wrappers
 │   ├── BaselineLinearRegressor.py
 │   ├── BaselineRandomForestRegressor.py
@@ -30,7 +33,6 @@ AI-Model/
 ├── main.ipynb                    # Main notebook for model training, plots, and analysis
 ├── df_clean.pkl                  # Preprocessed DataFrame (cached)
 ├── pipeline.pkl                  # Trained pipeline (latest model)
-├── monatszahlen2501_*.csv        # Original input dataset
 ├── PostRequest.py                # Sample client to send POST requests to API
 ├── Procfile                      # Heroku entry point
 ├── requirements.txt              # Python dependencies
